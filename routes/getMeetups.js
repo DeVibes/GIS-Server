@@ -1,13 +1,9 @@
-
 const express = require("express");
-const fetch = require("node-fetch");
-
 const Meetups = require("../models/meetup")
 
 const router = express.Router();
 
-
-router.get(`/`, async(req, res) => {
+router.get(`/`, async (req, res) => {
     try {
         const meetups = await Meetups.find();
         res.json(meetups);
@@ -16,7 +12,7 @@ router.get(`/`, async(req, res) => {
     }
 })
 
-router.get(`/:id`, async(req, res) => {
+router.get(`/:id`, async (req, res) => {
     try {
         const meetup = await Meetups.findById(req.params.id);
         res.json(meetup);
@@ -25,7 +21,7 @@ router.get(`/:id`, async(req, res) => {
     }
 })
 
-router.post(`/`, async(req, res) => {
+router.post(`/`, async (req, res) => {
     const meetup = new Meetups({
         name: req.body.name,
         category: req.body.category,
@@ -34,15 +30,14 @@ router.post(`/`, async(req, res) => {
         coords: req.body.coords
     })
 
-    try{
+    try {
         let dbResult = await meetup.save()
         res.json(dbResult)
 
-    }catch(err) {
+    } catch(err) {
         res.status(500).send(err)
     }
 })
-
 
 router.post(`/remove`, async (req, res) => {
     try {
