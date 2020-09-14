@@ -3,7 +3,6 @@ const cors = require("cors");
 const express = require('express')
 const mongoose = require("mongoose");
 
-
 // To read the .env file
 require("dotenv").config();
 

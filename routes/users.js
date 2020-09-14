@@ -12,10 +12,14 @@ router.post(`/`, async (req, res) => {
     })
 
     try {
+        let count = await Users.find({username: req.body.username})
+        if (count != 0) throw new Error('Username already exists')
+        count = await Users.find({phone: req.body.phone})
+        if (count != 0) throw new Error('Phone already exists')
         let dbResult = await user.save()
         res.json(dbResult)
-    } catch (error) {
-        res.status(500).send(err)
+    } catch ({message}) {
+        res.status(500).json(message)
     }
 })
 
