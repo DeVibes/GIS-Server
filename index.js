@@ -14,8 +14,9 @@ app.use(bodyParser.json());
 
 // Routes
 app.use("/address", require("./routes/getAddressByCoords"));
-
 app.use("/meetups", require("./routes/getMeetups"));
+app.use("/users", require("./routes/users"));
+
 
 mongoose.connect(process.env.MONGOOSE_CONNECTION_STRING, { useNewUrlParser: true, useUnifiedTopology: true })
 const connection = mongoose.connection

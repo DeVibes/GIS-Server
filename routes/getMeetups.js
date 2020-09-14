@@ -39,7 +39,7 @@ router.post(`/`, async (req, res) => {
     }
 })
 
-router.post(`/remove`, async (req, res) => {
+router.delete(`/`, async (req, res) => {
     try {
         const result = await Meetups.remove()
         res.json(result)
