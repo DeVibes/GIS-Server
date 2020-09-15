@@ -32,7 +32,7 @@ router.delete(`/`, async (req, res) => {
     }
 })
 
-router.get(`/:username`, async (req, res) => {
+router.put(`/:username`, async (req, res) => {
     try {
         const user = await Users.find( {username: req.params.username} );
         if (user.length == 0) {

@@ -19,6 +19,12 @@ const MeetupSchema = new mongoose.Schema({
             lng: Number
         }
     },
+    admin: {
+        type: String
+    },
+    attendants: {
+        type: [String]
+    }
 })
 
 module.exports = mongoose.model('Meetups', MeetupSchema);
