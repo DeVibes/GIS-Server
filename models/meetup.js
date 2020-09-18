@@ -24,6 +24,9 @@ const MeetupSchema = new mongoose.Schema({
     },
     attendants: {
         type: [String]
+    },
+    maxAttendants: {
+        type: Number
     }
 })
 

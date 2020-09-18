@@ -32,6 +32,7 @@ router.delete(`/`, async (req, res) => {
     }
 })
 
+/* Auth user */
 router.put(`/:username`, async (req, res) => {
     try {
         const user = await Users.find( {username: req.params.username} );
@@ -40,6 +41,21 @@ router.put(`/:username`, async (req, res) => {
         }
         else if (user[0].password != req.body.password){
             res.status(401).json(`Password missmatch`)
+        }
+        else res.json({
+            username: user[0].username,
+            personName: user[0].personName
+        });
+    } catch (error) {
+        console.log(error)
+    }
+})
+
+router.get(`/:username`, async (req, res) => {
+    try {
+        const user = await Users.find( {username: req.params.username} );
+        if (user.length == 0) {
+            res.status(404).json(`User was not found`)
         }
         else res.json(user[0]);
     } catch (error) {

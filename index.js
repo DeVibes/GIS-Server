@@ -13,7 +13,7 @@ app.use(bodyParser.json());
 
 // Routes
 app.use("/address", require("./routes/getAddressByCoords"));
-app.use("/meetups", require("./routes/getMeetups"));
+app.use("/meetups", require("./routes/meetups"));
 app.use("/users", require("./routes/users"));
 
 
