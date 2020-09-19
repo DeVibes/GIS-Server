@@ -56,14 +56,17 @@ router.patch('/:id', async (req, res) => {
             attendants: req.body.attendants || meetup.attendants,
         }
 
-        const updatedMeetup = await Meetups.updateOne(
+        const update = await Meetups.updateOne(
             { _id: req.params.id },
             { $set: updatedObj }
         );
+
+        const updatedMeetup = await Meetups.findById(req.params.id);
+
         res.json(updatedMeetup);
         
     } catch (error) {
-        res.status(500).send(error)
+        res.status(404).send(error)
     }
 })
 
