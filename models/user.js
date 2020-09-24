@@ -12,8 +12,16 @@ const UsersSchema = new mongoose.Schema({
         type: String,
         unique: true
     },
-    personName:{
+    personName: {
         type: String
+    },
+    savedAddresses: {
+        type: [
+            {
+                nickName: String,
+                address: String
+            }
+        ]
     }
 })
 
