@@ -12,6 +12,18 @@ router.get(`/`, async (req, res) => {
     }
 })
 
+router.put(`/`, async (req, res) => {
+    let filterOptions = req.body
+    try {
+        let meetups = await Meetups.find();
+        meetups = meetups.filter(meetup => meetup.attendants.includes(filterOptions.attendance))
+        meetups = meetups.filter(meetup => filterOptions.categories.includes(meetup.category) )
+        res.json(meetups)
+    } catch (error) {
+        console.log(error)
+    }
+})
+
 router.get(`/:id`, async (req, res) => {
     try {
         const meetup = await Meetups.findById(req.params.id);
