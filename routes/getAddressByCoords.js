@@ -4,9 +4,7 @@ const fetch = require("node-fetch");
 
 router.get(`/`, (req, res) => {
     let { lat, lng } = req.query
-    if (lat === undefined || lat === `` || lng === undefined || lng === '')
-        res.status(404).send(`No coords found`)
-    else {
+    if (lat && lng) {
         fetch(`${process.env.GET_COORDS_REQ}?latlng=${lat},${lng}&key=${process.env.GOOGLE_MAPS_API_KEY}`)
         .then((response) => response.json())
         .then(responseJson => {
@@ -16,6 +14,9 @@ router.get(`/`, (req, res) => {
         .catch((err) => {
             console.log(err)
         })
+    }
+    else {
+        res.status(404).send(`No coords found`)
     }
 });
 

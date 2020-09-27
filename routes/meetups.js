@@ -16,8 +16,9 @@ router.put(`/`, async (req, res) => {
     let filterOptions = req.body
     try {
         let meetups = await Meetups.find();
-        meetups = meetups.filter(meetup => meetup.attendants.includes(filterOptions.attendance))
-        meetups = meetups.filter(meetup => filterOptions.categories.includes(meetup.category) )
+        if (filterOptions.attendance !== "")
+            meetups = meetups.filter(meetup => meetup.participants.includes(filterOptions.attendance))
+        meetups = meetups.filter(meetup => filterOptions.categories.includes(meetup.category))
         res.json(meetups)
     } catch (error) {
         console.log(error)
@@ -41,8 +42,8 @@ router.post(`/`, async (req, res) => {
         date: req.body.date,
         coords: req.body.coords,
         admin: req.body.admin,
-        maxAttendants: req.body.maxAttendants,
-        attendants: req.body.attendants,
+        maxParticipants: req.body.maxParticipants,
+        participants: req.body.participants,
     })
 
     try {
@@ -64,8 +65,8 @@ router.patch('/:id', async (req, res) => {
             date: req.body.date || meetup.date,
             address: req.body.address || meetup.address,
             coords: req.body.coords || meetup.coords,
-            maxAttendants: req.body.maxAttendants || meetup.maxAttendants,
-            attendants: req.body.attendants || meetup.attendants,
+            maxParticipants: req.body.maxParticipants || meetup.maxParticipants,
+            participants: req.body.participants || meetup.participants,
         }
 
         const update = await Meetups.updateOne(
@@ -85,6 +86,15 @@ router.patch('/:id', async (req, res) => {
 router.delete(`/`, async (req, res) => {
     try {
         const result = await Meetups.remove()
+        res.json(result)
+    } catch (error) {
+        console.log(error)
+    }
+})
+
+router.delete(`/:id`, async (req, res) => {
+    try {
+        const result = await Meetups.deleteOne({ _id: req.params.id })
         res.json(result)
     } catch (error) {
         console.log(error)

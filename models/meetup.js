@@ -22,10 +22,10 @@ const MeetupSchema = new mongoose.Schema({
     admin: {
         type: String
     },
-    attendants: {
+    participants: {
         type: [String]
     },
-    maxAttendants: {
+    maxParticipants: {
         type: Number
     }
 })
