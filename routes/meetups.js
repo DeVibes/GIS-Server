@@ -97,7 +97,7 @@ router.delete(`/:id`, async (req, res) => {
         const result = await Meetups.deleteOne({ _id: req.params.id })
         res.json(result)
     } catch (error) {
-        console.log(error)
+        res.status(404).send(error)
     }
 })
 

@@ -8,7 +8,7 @@ const MeetupSchema = new mongoose.Schema({
         type: String
     },
     date: {
-        type: Date
+        type: String
     },
     address: {
         type: String
