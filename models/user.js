@@ -19,7 +19,13 @@ const UsersSchema = new mongoose.Schema({
         type: [
             {
                 nickName: String,
-                address: String
+                address: String,
+                coords: {
+                    type: {
+                        lat: Number,
+                        lng: Number
+                    }
+                }
             }
         ]
     }
