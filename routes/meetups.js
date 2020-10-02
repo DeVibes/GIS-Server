@@ -44,6 +44,7 @@ router.post(`/`, async (req, res) => {
         admin: req.body.admin,
         maxParticipants: req.body.maxParticipants,
         participants: req.body.participants,
+        description: req.body.description,
     })
 
     try {
@@ -67,6 +68,7 @@ router.patch('/:id', async (req, res) => {
             coords: req.body.coords || meetup.coords,
             maxParticipants: req.body.maxParticipants || meetup.maxParticipants,
             participants: req.body.participants || meetup.participants,
+            description: req.body.description || meetup.description,
         }
 
         const update = await Meetups.updateOne(
