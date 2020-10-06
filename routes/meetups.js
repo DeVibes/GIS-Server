@@ -71,17 +71,21 @@ router.patch('/:id', async (req, res) => {
             description: req.body.description || meetup.description,
         }
 
-        const update = await Meetups.updateOne(
-            { _id: req.params.id },
-            { $set: updatedObj }
-        );
-
-        const updatedMeetup = await Meetups.findById(req.params.id);
-
-        res.json(updatedMeetup);
-        
+        if (Boolean(req.body.participants) && req.body.participants.length > meetup.maxParticipants) {
+            res.status(500).json(`Meetup is already full`)
+        }
+        else {
+            const update = await Meetups.updateOne(
+                { _id: req.params.id },
+                { $set: updatedObj }
+            );
+            
+            const updatedMeetup = await Meetups.findById(req.params.id);
+            
+            res.json(updatedMeetup);
+        }
     } catch (error) {
-        res.status(404).send(error)
+        console.log(error)
     }
 })
 
