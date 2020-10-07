@@ -18,6 +18,8 @@ router.put(`/`, async (req, res) => {
         let meetups = await Meetups.find();
         if (filterOptions.attendance !== "")
             meetups = meetups.filter(meetup => meetup.participants.includes(filterOptions.attendance))
+        if (filterOptions.admin !== "")
+            meetups = meetups.filter(meetup => meetup.admin === filterOptions.admin)
         meetups = meetups.filter(meetup => filterOptions.categories.includes(meetup.category))
         res.json(meetups)
     } catch (error) {
